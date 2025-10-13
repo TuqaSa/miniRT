@@ -10,7 +10,10 @@ RM = rm -f
 SRCS = main.c \
        color.c \
        src/canvas.c \
-       src/matrix.c \
+       src/matrix2.c \
+       src/matrix3.c \
+       src/matrix4.c \
+       src/transformations.c \
        src/simulation.c \
        src/math/tuple.c \
        src/math/arithmetic.c \
@@ -23,7 +26,12 @@ CANVAS_TEST_SRCS = canvas_test.c \
                    src/math/arithmetic.c
 
 MATRIX_TEST_SRCS = matrix_test.c \
-                   src/matrix.c
+                   src/matrix2.c \
+                   src/matrix3.c \
+                   src/matrix4.c \
+                   src/transformations.c \
+                   src/math/tuple.c \
+                   src/math/arithmetic.c
 
 OBJS = $(SRCS:.c=.o)
 CANVAS_TEST_OBJS = $(CANVAS_TEST_SRCS:.c=.o)

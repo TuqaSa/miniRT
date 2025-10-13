@@ -6,7 +6,7 @@
 /*   By: tsaeed < tsaeed@student.42amman.com >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 22:00:23 by tsaeed            #+#    #+#             */
-/*   Updated: 2025/09/16 23:02:14 by tsaeed           ###   ########.fr       */
+/*   Updated: 2025/10/13 11:16:33 by tsaeed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,31 @@ typedef struct s_canvas
     t_color **pixels;
 } t_canvas;
 
-typedef struct s_matrix
+// Matrix structures - Fixed-size arrays for performance
+typedef struct s_matrix4
 {
-    int rows;
-    int cols;
-    float **data;
-} t_matrix;
+    double m[4][4];
+} t_matrix4;
+
+typedef struct s_matrix3
+{
+    double m[3][3];
+} t_matrix3;
+
+typedef struct s_matrix2
+{
+    double m[2][2];
+} t_matrix2;
+
+typedef struct s_shear
+{
+    float xy;
+    float xz;
+    float yx;
+    float yz;
+    float zx;
+    float zy;
+} t_shear;
 
 // Function prototypes
 // Tuple operations
@@ -112,10 +131,67 @@ void canvas_render (t_canvas *canvas);
 void canvas_clear (t_canvas *canvas, t_color color);
 
 // Matrix operations
-t_matrix *matrix_create (int rows, int cols);
-void matrix_destroy (t_matrix *matrix);
-void matrix_set (t_matrix *matrix, int row, int col, float value);
-float matrix_get (t_matrix *matrix, int row, int col);
-t_matrix *matrix_from_array (int rows, int cols, float values[]);
+t_matrix4 matrix4_create (void);
+t_matrix4 matrix4_identity (void);
+t_matrix3 matrix3_create (void);
+t_matrix2 matrix2_create (void);
+t_matrix4 matrix4_from_array (double values[16]);
+t_matrix3 matrix3_from_array (double values[9]);
+t_matrix2 matrix2_from_array (double values[4]);
+void matrix4_print (t_matrix4 matrix);
+void matrix3_print (t_matrix3 matrix);
+void matrix2_print (t_matrix2 matrix);
+bool matrix4_equal (t_matrix4 a, t_matrix4 b);
+bool matrix3_equal (t_matrix3 a, t_matrix3 b);
+bool matrix2_equal (t_matrix2 a, t_matrix2 b);
+t_matrix4 matrix4_multiply (t_matrix4 a, t_matrix4 b);
+t_tuple matrix4_multiply_tuple (t_matrix4 m, t_tuple t);
+void transpose_matrix4 (t_matrix4 *m);
+t_matrix4 matrix4_transpose (t_matrix4 matrix);
+
+// Determinant functions
+float matrix2_determinant (t_matrix2 m);
+float matrix3_determinant (t_matrix3 m);
+float matrix4_determinant (t_matrix4 m);
+t_matrix3 submatrix4 (t_matrix4 m, int row, int col);
+t_matrix2 submatrix3 (t_matrix3 m, int row, int col);
+float minor3 (t_matrix3 m, int row, int col);
+float minor4 (t_matrix4 m, int row, int col);
+float cofactor (t_matrix3 m, int row, int col);
+float cofactor4 (t_matrix4 m, int row, int col);
+
+// Matrix inversion functions
+bool isinvertible (t_matrix4 m);
+t_matrix4 inverse (t_matrix4 m);
+
+// Transformation functions
+t_matrix4 translation (float x, float y, float z);
+t_matrix4 scaling (float x, float y, float z);
+t_matrix4 rotation_x (float radians);
+t_matrix4 rotation_y (float radians);
+t_matrix4 rotation_z (float radians);
+t_matrix4 shearing (t_shear params);
+ 
+// Fluent API for transformation chaining
+typedef struct s_transform_builder
+{
+    t_matrix4 matrix;
+} t_transform_builder;
+
+t_transform_builder transform_identity (void);
+t_transform_builder transform_translate (t_transform_builder builder, float x,
+                                         float y, float z);
+t_transform_builder transform_scale (t_transform_builder builder, float x,
+                                     float y, float z);
+t_transform_builder transform_rotate_x (t_transform_builder builder,
+                                        float radians);
+t_transform_builder transform_rotate_y (t_transform_builder builder,
+                                        float radians);
+t_transform_builder transform_rotate_z (t_transform_builder builder,
+                                        float radians);
+t_transform_builder transform_shear (t_transform_builder builder,
+                                     t_shear params);
+t_matrix4 transform_build (t_transform_builder builder);
 
 #endif
+//

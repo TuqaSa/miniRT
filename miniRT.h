@@ -6,7 +6,7 @@
 /*   By: tsaeed < tsaeed@student.42amman.com >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 22:00:23 by tsaeed            #+#    #+#             */
-/*   Updated: 2025/10/13 11:16:33 by tsaeed           ###   ########.fr       */
+/*   Updated: 2025/10/14 13:26:24 by tsaeed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,12 @@ typedef struct s_shear
     float zx;
     float zy;
 } t_shear;
+
+typedef struct s_ray
+{
+    t_tuple origin;
+    t_tuple direction;
+} t_ray;
 
 // Function prototypes
 // Tuple operations
@@ -171,7 +177,7 @@ t_matrix4 rotation_x (float radians);
 t_matrix4 rotation_y (float radians);
 t_matrix4 rotation_z (float radians);
 t_matrix4 shearing (t_shear params);
- 
+
 // Fluent API for transformation chaining
 typedef struct s_transform_builder
 {
@@ -192,6 +198,10 @@ t_transform_builder transform_rotate_z (t_transform_builder builder,
 t_transform_builder transform_shear (t_transform_builder builder,
                                      t_shear params);
 t_matrix4 transform_build (t_transform_builder builder);
+
+// Ray operations
+t_ray create_ray (t_tuple origin, t_tuple direction);
+t_tuple position(t_ray ray, float t);
 
 #endif
 //

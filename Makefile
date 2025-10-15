@@ -14,11 +14,11 @@ SRCS = main.c \
        src/matrix3.c \
        src/matrix4.c \
        src/transformations.c \
-       src/simulation.c \
+       src/ray.c \
+       src/shapes/sphere.c \
        src/math/tuple.c \
        src/math/arithmetic.c \
        src/math/vector.c
-       src/ray.c
 
 
 OBJS = $(SRCS:.c=.o)

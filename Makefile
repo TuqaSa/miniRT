@@ -10,6 +10,7 @@ RM = rm -f
 SRCS = main.c \
        src/color.c \
        src/canvas.c \
+       src/intersections.c \
        src/matrix2.c \
        src/matrix3.c \
        src/matrix4.c \

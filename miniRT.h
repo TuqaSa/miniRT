@@ -6,7 +6,7 @@
 /*   By: tsaeed < tsaeed@student.42amman.com >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 22:00:23 by tsaeed            #+#    #+#             */
-/*   Updated: 2025/10/14 15:47:12 by tsaeed           ###   ########.fr       */
+/*   Updated: 2025/10/15 18:27:22 by tsaeed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include "MLX42/include/MLX42/MLX42.h"
 #include <math.h>
+#include <stdarg.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -106,7 +107,7 @@ typedef struct s_intersection
 typedef struct s_intersections
 {
     int count;
-    t_intersection xs[2];
+    t_intersection xs[10]; // Increased to support multiple intersections
 } t_intersections;
 
 // Function prototypes
@@ -225,6 +226,11 @@ t_tuple position (t_ray ray, float t);
 // Sphere operations
 t_sphere sphere (void);
 t_intersections intersect (t_sphere sphere, t_ray ray);
+
+// Intersection operations
+t_intersection intersection (float t, t_sphere object);
+t_intersections intersections (int count, ...);
+int hit (t_intersections xs, t_intersection *result);
 
 #endif
 //

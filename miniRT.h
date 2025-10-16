@@ -6,7 +6,7 @@
 /*   By: tsaeed < tsaeed@student.42amman.com >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 22:00:23 by tsaeed            #+#    #+#             */
-/*   Updated: 2025/10/15 18:27:22 by tsaeed           ###   ########.fr       */
+/*   Updated: 2025/10/15 19:37:19 by tsaeed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ typedef struct s_sphere
     int id;
     t_tuple center;
     float radius;
+    t_matrix4 transform;
 } t_sphere;
 
 typedef struct s_intersection
@@ -222,9 +223,11 @@ t_matrix4 transform_build (t_transform_builder builder);
 // Ray operations
 t_ray create_ray (t_tuple origin, t_tuple direction);
 t_tuple position (t_ray ray, float t);
+t_ray transform (t_ray ray, t_matrix4 matrix);
 
 // Sphere operations
 t_sphere sphere (void);
+void set_transform (t_sphere *sphere, t_matrix4 transform);
 t_intersections intersect (t_sphere sphere, t_ray ray);
 
 // Intersection operations

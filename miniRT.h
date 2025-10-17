@@ -6,7 +6,7 @@
 /*   By: tsaeed < tsaeed@student.42amman.com >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 22:00:23 by tsaeed            #+#    #+#             */
-/*   Updated: 2025/10/15 19:37:19 by tsaeed           ###   ########.fr       */
+/*   Updated: 2025/10/17 21:33:11 by tsaeed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,6 +229,7 @@ t_ray transform (t_ray ray, t_matrix4 matrix);
 t_sphere sphere (void);
 void set_transform (t_sphere *sphere, t_matrix4 transform);
 t_intersections intersect (t_sphere sphere, t_ray ray);
+t_tuple normal_at (t_sphere sphere, t_tuple world_point);
 
 // Intersection operations
 t_intersection intersection (float t, t_sphere object);

@@ -11,6 +11,7 @@ SRCS = main.c \
        src/color.c \
        src/canvas.c \
        src/intersections.c \
+       src/light.c \
        src/matrix2.c \
        src/matrix3.c \
        src/matrix4.c \
